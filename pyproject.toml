@@ -6,9 +6,42 @@ authors = ["Davidson <deivisonj1@hotmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
-django = "^5.1.4"
+python = "^3.12"
+django = "^5.1"
 
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+pytest-django = "^4.9.0"
+pytest-cov = "^5.0.0"
+ruff = "^0.6.5"
+taskipy = "^1.13.0"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "dev.settings"
+python_files = ["test*.py", "*.p_testy"]
+
+[tool.ruff]
+line-length = 120
+exclude = ['./dev/base/migrations']
+
+[tool.ruff.lint]
+select = ['I', 'F', 'E', 'W', 'PL', 'PT']
+ignore = ["PLR2004"]
+
+[tool.ruff.format]
+quote-style = 'single'
+
+[tool.taskipy.tasks]
+lint = "ruff check . && ruff check . --diff"
+format = "ruff check . --fix && ruff format ."
+start = "python manage.py runserver"
+migrate = "python manage.py migrate"
+pre_test = "task lint"
+test = "pytest devpro/ -s -x --cov=devpro -vv"
+post_test = "coverage html"
 
 [build-system]
 requires = ["poetry-core"]
