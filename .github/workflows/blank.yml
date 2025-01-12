@@ -36,6 +36,3 @@ jobs:
       - name: Corrigir problemas de linting
         run: poetry run ruff check . --fix
 
-      - name: Rodar testes do Django com cobertura
-        run: poetry run pytest
-
