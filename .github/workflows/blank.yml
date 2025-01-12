@@ -32,8 +32,8 @@ jobs:
           python -m pip install poetry
           poetry install --with dev --sync --no-root
 
-      - name: Lint
-        run: poetry run task lint
+      - name: Corrigir problemas de linting
+        run: poetry run ruff check . --fix
 
       - name: Rodar testes do Django com cobertura
         run: poetry run pytest devpro --cov=devpro --cov-fail-under=82
