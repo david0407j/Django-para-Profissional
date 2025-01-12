@@ -6,8 +6,12 @@ authors = ["Davidson <deivisonj1@hotmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.11.6"
 django = "^5.1"
+dj-database-url = "^2.3.0"
+psycopg2-binary = "^2.9.10"
+sentry-sdk = "^2.12.0"
+python-decouple = "^3.8"
 
 [tool.poetry.group.dev]
 optional = true

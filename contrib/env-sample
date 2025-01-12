@@ -1,0 +1,3 @@
+DEBUG=False
+SECRET_KEY= defina sua chave secreta
+DATABASE_URL=postgres://devpro:devpro@localhost:5432/postgres
