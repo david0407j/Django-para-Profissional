@@ -17,11 +17,11 @@ jobs:
           POSTGRES_PASSWORD: devpro
           POSTGRES_DB: postgres
         ports: [ '5432:5432' ]
-
+    
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 0  # Garante que o histórico completo do repositório seja clonado
 
       - uses: actions/setup-python@v5
         with:
@@ -33,12 +33,16 @@ jobs:
           python -m pip install poetry
           poetry install --with dev --sync --no-root
 
-      - name: Corrigir problemas de linting
-        run: poetry run ruff check . --fix
+      - name: Listar conteúdo do repositório
+        run: ls -R  # Isso ajuda a verificar se o diretório devpro existe
 
-      - name: Verificar se o diretório `devpro` existe
+      - name: Verificar se o diretório devpro existe
         run: |
           if [ ! -d "devpro" ]; then echo "Erro: Diretório devpro não encontrado!" && exit 1; fi
 
+      - name: Corrigir problemas de linting
+        run: poetry run ruff check . --fix
+
       - name: Rodar testes do Django com cobertura
         run: poetry run pytest devpro --cov=devpro --cov-fail-under=82
+
