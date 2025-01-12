@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Garante que o histórico completo do repositório seja clonado
+          fetch-depth: 
 
       - uses: actions/setup-python@v5
         with:
@@ -32,13 +32,6 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install poetry
           poetry install --with dev --sync --no-root
-
-      - name: Listar conteúdo do repositório
-        run: ls -R  # Isso ajuda a verificar se o diretório devpro existe
-
-      - name: Verificar se o diretório devpro existe
-        run: |
-          if [ ! -d "devpro" ]; then echo "Erro: Diretório devpro não encontrado!" && exit 1; fi
 
       - name: Corrigir problemas de linting
         run: poetry run ruff check . --fix
