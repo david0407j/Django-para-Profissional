@@ -4,10 +4,17 @@ version = "0.1.0"
 description = ""
 authors = ["Davidson <deivisonj1@hotmail.com>"]
 readme = "README.md"
+packages = [
+    { include = "devpro" }
+]
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.11.6"
 django = "^5.1"
+dj-database-url = "^2.3.0"
+psycopg2-binary = "^2.9.10"
+sentry-sdk = "^2.12.0"
+python-decouple = "^3.8"
 
 [tool.poetry.group.dev]
 optional = true
@@ -19,13 +26,10 @@ pytest-cov = "^5.0.0"
 ruff = "^0.6.5"
 taskipy = "^1.13.0"
 
-[tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "dev.settings"
-python_files = ["test*.py", "*.p_testy"]
 
 [tool.ruff]
 line-length = 120
-exclude = ['./dev/base/migrations']
+exclude = ['./devpro/migrations']
 
 [tool.ruff.lint]
 select = ['I', 'F', 'E', 'W', 'PL', 'PT']

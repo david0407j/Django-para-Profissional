@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
+from decouple import config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-x!+6j*6bpvmrl*$5w=&kb%@gbadhycs^9paj67r%w7gyjol@+0'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,8 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "dev.base",
-
+    'dev.base',
 ]
 
 MIDDLEWARE = [
@@ -72,16 +73,18 @@ TEMPLATES = [
 WSGI_APPLICATION = 'dev.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'devpron_db',  # Mesmo que POSTGRES_DB
+        'USER': 'devpron',  # Mesmo que POSTGRES_USER
+        'PASSWORD': 'devpro',  # Mesmo que POSTGRES_PASSWORD
+        'HOST': 'localhost',  # Ou o nome do serviço no Docker Compose (veja abaixo)
+        'PORT': '5432',  # Mesmo que POSTGRES_PORT
     }
 }
 
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
